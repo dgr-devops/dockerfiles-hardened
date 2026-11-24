@@ -1,0 +1,122 @@
+{
+  "python": {
+    "before": {
+      "size_mb": 1623.8,
+      "trivy": {
+        "CRITICAL": 16,
+        "HIGH": 526,
+        "MEDIUM": 1224,
+        "LOW": 1454,
+        "UNKNOWN": 587,
+        "TOTAL": 3807,
+        "FIXABLE_HC": 347
+      },
+      "hadolint": {
+        "error": 0,
+        "warning": 1,
+        "info": 0,
+        "style": 0,
+        "TOTAL": 1
+      }
+    },
+    "after": {
+      "size_mb": 202.7,
+      "trivy": {
+        "CRITICAL": 0,
+        "HIGH": 53,
+        "MEDIUM": 86,
+        "LOW": 82,
+        "UNKNOWN": 14,
+        "TOTAL": 235,
+        "FIXABLE_HC": 0
+      },
+      "hadolint": {
+        "error": 0,
+        "warning": 0,
+        "info": 0,
+        "style": 0,
+        "TOTAL": 0
+      }
+    }
+  },
+  "node": {
+    "before": {
+      "size_mb": 1632.7,
+      "trivy": {
+        "CRITICAL": 20,
+        "HIGH": 488,
+        "MEDIUM": 1392,
+        "LOW": 1486,
+        "UNKNOWN": 575,
+        "TOTAL": 3961,
+        "FIXABLE_HC": 6
+      },
+      "hadolint": {
+        "error": 0,
+        "warning": 0,
+        "info": 0,
+        "style": 0,
+        "TOTAL": 0
+      }
+    },
+    "after": {
+      "size_mb": 219.9,
+      "trivy": {
+        "CRITICAL": 0,
+        "HIGH": 2,
+        "MEDIUM": 34,
+        "LOW": 17,
+        "UNKNOWN": 2,
+        "TOTAL": 55,
+        "FIXABLE_HC": 0
+      },
+      "hadolint": {
+        "error": 0,
+        "warning": 0,
+        "info": 0,
+        "style": 0,
+        "TOTAL": 0
+      }
+    }
+  },
+  "java": {
+    "before": {
+      "size_mb": 745.7,
+      "trivy": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 83,
+        "LOW": 20,
+        "UNKNOWN": 0,
+        "TOTAL": 103,
+        "FIXABLE_HC": 0
+      },
+      "hadolint": {
+        "error": 0,
+        "warning": 0,
+        "info": 0,
+        "style": 0,
+        "TOTAL": 0
+      }
+    },
+    "after": {
+      "size_mb": 262.0,
+      "trivy": {
+        "CRITICAL": 0,
+        "HIGH": 8,
+        "MEDIUM": 27,
+        "LOW": 25,
+        "UNKNOWN": 7,
+        "TOTAL": 67,
+        "FIXABLE_HC": 0
+      },
+      "hadolint": {
+        "error": 0,
+        "warning": 0,
+        "info": 0,
+        "style": 0,
+        "TOTAL": 0
+      }
+    }
+  }
+}
