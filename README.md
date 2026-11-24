@@ -86,7 +86,18 @@ make compare       # reconstruye todo, mide y regenera la tabla
 
 ## Verificación
 
-_(Se completa tras ejecutar el CI en GitHub.)_
+Ejecutado de verdad (2026-11-24, Docker en local y GitHub Actions):
+
+- `make build build-before`: las seis imágenes se construyen.
+- `make lint` (hadolint por contenedor): sin avisos en los tres `Dockerfile` endurecidos.
+- `make scan` (Trivy `--ignore-unfixed --severity HIGH,CRITICAL`): pasa en las tres imágenes endurecidas.
+- `make smoke`: las tres imágenes arrancan con `--read-only --cap-drop ALL --security-opt no-new-privileges`
+  y el healthcheck llega a `healthy`.
+- `make compare`: regenera la tabla de arriba con Trivy 0.76.2 y su base de datos del mismo día.
+- CI en GitHub Actions en verde: job de hadolint y tres jobs `build + trivy` (python, node, java).
+
+No verificado: otras arquitecturas (solo `linux/amd64`), ejecución con Kubernetes y comportamiento
+con base de datos de Trivy de otros días (los recuentos cambian).
 
 ## Licencia
 
