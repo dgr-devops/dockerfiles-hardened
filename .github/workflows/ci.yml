@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# No se reutiliza docker-build-scan-push.yml del repo de workflows reutilizables:
+# publica en GHCR y aquí solo se construye, se escanea y se prueba (ver docs/decisiones.md).
+jobs:
+  lint:
+    name: hadolint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: hadolint (falla con avisos en los Dockerfile endurecidos)
+        run: make lint
+
+  build-scan:
+    name: build + trivy (${{ matrix.lang }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [python, node, java]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (endurecida)
+        run: docker build -t dh-${{ matrix.lang }}:after ${{ matrix.lang }}
+      - name: Trivy (falla con HIGH/CRITICAL que tengan parche)
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:latest image --scanners vuln \
+            --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 \
+            dh-${{ matrix.lang }}:after
+      - name: Prueba de arranque (solo lectura, sin capacidades, healthcheck)
+        run: |
+          docker run -d --name smoke --read-only --tmpfs /tmp --cap-drop ALL \
+            --security-opt no-new-privileges dh-${{ matrix.lang }}:after
+          for i in $(seq 1 12); do
+            st=$(docker inspect -f '{{.State.Health.Status}}' smoke)
+            echo "healthcheck: $st"
+            [ "$st" = healthy ] && exit 0
+            sleep 10
+          done
+          docker logs smoke
+          exit 1
