@@ -1,0 +1,7 @@
+# Versión ingenua: lo que escribe quien empieza. NO usar en producción.
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY . .
+RUN mkdir out && javac -d out src/App.java
+EXPOSE 8080
+CMD ["java", "-cp", "out", "App"]

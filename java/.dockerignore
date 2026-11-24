@@ -1,0 +1,9 @@
+out/
+*.class
+*.jar
+.git/
+.env
+.env.*
+Dockerfile*
+.dockerignore
+*.md
